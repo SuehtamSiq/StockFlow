@@ -18,6 +18,7 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import controller.ProdutoController;
+import model.PainelProduto;
 
 public class TelaPrincipal extends JFrame {
 
@@ -86,15 +87,13 @@ public class TelaPrincipal extends JFrame {
 		
 		JButton btnMateriais = new JButton("Materiais");
 		btnMateriais.addActionListener(e -> {
-			public void actionPerformed(ActionEvent e) {
-				PainelConteudo.removeAll();
-				PainelMateriais telaMateriais = new PainelMateriais(controllerGeral);
-						
-				PainelConteudo.add(telaMateriais);
-				((PainelMateriais)painelMateriais).atualizarTabela();
-				PainelConteudo.revalidate();
-				PainelConteudo.repaint();
-			}
+		PainelConteudo.removeAll();
+		PainelMateriais telaMateriais = new PainelMateriais(controllerGeral);
+
+		PainelConteudo.add(telaMateriais);
+		telaMateriais.atualizarTabela();
+		PainelConteudo.revalidate();
+		PainelConteudo.repaint();
 		});
 		btnMateriais.setBackground(new Color(192, 192, 192));
 		btnMateriais.setForeground(new Color(0, 0, 128));
