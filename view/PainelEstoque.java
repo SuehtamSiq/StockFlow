@@ -1,18 +1,16 @@
 package view;
 
+import controller.ProdutoController;
+import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
-
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-
-import controller.ProdutoController;
 import model.Produto;
-import java.awt.Color;
 
 public class PainelEstoque extends JPanel {
 
@@ -67,4 +65,26 @@ public void carregarEstoque(ArrayList<Produto>lista) {
 		});
 		}
 }
+public void atualizar() {
+    DefaultTableModel modelo = (DefaultTableModel) table.getModel();
+    modelo.setRowCount(0);
+    
+    // Percorremos os produtos finais
+    for (Produto p : controller.getListaProdutos()) {
+        // Para cada produto, percorremos seus materiais (a BOM)
+        for (Produto mat : p.getMateriais()) {
+            int estoqueMinimo = 30;
+            String status = (mat.getUnidade() < estoqueMinimo) ? "Baixo" : "Ok";
+            
+            modelo.addRow(new Object[] {
+                mat.getNome() + " (Ref: " + p.getCodigo() + ")", // Nome do material e qual produto ele pertence
+                mat.getUnidade(),
+                estoqueMinimo,
+                status
+            });
+        }
+    }
 }
+
+}
+

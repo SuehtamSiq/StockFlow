@@ -33,10 +33,18 @@ public class PainelProduto extends JPanel {
         lblTitulo.setBounds(150, 11, 350, 30);
         add(lblTitulo);
 
+        JLabel lblCodProd = new JLabel("Código");
+        lblCodProd.setFont(new Font("Arial", Font.BOLD, 12));
+        lblCodProd.setBounds(20, 60, 100, 12);
+        add(lblCodProd);
         txtCodProd = new JTextField();
         txtCodProd.setBounds(80, 60, 100, 20);
         add(txtCodProd);
 
+        JLabel lblNomeProd = new JLabel("Nome");
+        lblNomeProd.setFont(new Font("Arial", Font.BOLD, 12));
+        lblNomeProd.setBounds(20, 90, 100, 12);
+        add(lblNomeProd);
         txtNomeProd = new JTextField();
         txtNomeProd.setBounds(80, 90, 300, 20);
         add(txtNomeProd);

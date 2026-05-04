@@ -112,6 +112,10 @@ public class TelaPrincipal extends JFrame {
         botao.setFont(new Font("Arial", Font.BOLD, 14));
 
         botao.addActionListener(e -> {
+        if (nomeTela.equals("estoque")) {
+        painelEstoque.atualizar(); // <--- Adicione esta linha
+        }
+    // ... manter as outras verificações (dashboard, materiais, etc)
         if (nomeTela.equals("materiais")) {
         painelMateriais.atualizarCombo(); // Garante que a lista de produtos pai está fresca
         painelMateriais.atualizarTabela();
