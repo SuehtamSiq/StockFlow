@@ -20,4 +20,18 @@ public class ProdutoController {
     public List<Produto> getListaProdutos() {
         return listaProdutos;
     }
+
+    public Produto buscarPorCodigo(String codigo) {
+    return listaProdutos.stream()
+        .filter(p -> p.getCodigo().equals(codigo))
+        .findFirst()
+        .orElse(null);
+}
+
+public void adicionarMaterialAoProduto(String codigoProduto, Produto material) {
+    Produto pai = buscarPorCodigo(codigoProduto);
+    if (pai != null) {
+        pai.adicionarMaterial(material);
+    }
+}
 }

@@ -13,7 +13,6 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import model.PainelProduto;
 
 public class TelaPrincipal extends JFrame {
 
@@ -113,11 +112,13 @@ public class TelaPrincipal extends JFrame {
         botao.setFont(new Font("Arial", Font.BOLD, 14));
 
         botao.addActionListener(e -> {
-            // Atualizações específicas antes de trocar de tela
-            if (nomeTela.equals("materiais")) {
-                painelMateriais.atualizarTabela();
-            }
-
+        if (nomeTela.equals("materiais")) {
+        painelMateriais.atualizarCombo(); // Garante que a lista de produtos pai está fresca
+        painelMateriais.atualizarTabela();
+        }
+        if (nomeTela.equals("dashboard")) {
+            painelDashboard.atualizarDados(); // <--- Chama o novo método aqui
+        }
             cardLayout.show(painelConteudo, nomeTela);
         });
 

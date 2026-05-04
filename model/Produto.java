@@ -1,17 +1,31 @@
 package model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Produto {
 	private String codigo;
 	private String nome;
 	private int unidade;
 	private double custo;
 	
+	private List<Produto> materiais = new ArrayList<>();
+
+	public void adicionarMaterial(Produto material) {
+		this.materiais.add(material);
+	}
+
+	public List<Produto> getMateriais() {
+		return materiais;
+	}
+
 	public Produto(String codigo, String nome, int unidade, double custo) {
 		
 		this.codigo = codigo;
 		this.nome = nome;
 		this.unidade = unidade;
 		this.custo = custo;
+
 		
 	}
 
