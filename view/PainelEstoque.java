@@ -73,11 +73,12 @@ public void atualizar() {
     for (Produto p : controller.getListaProdutos()) {
         // Para cada produto, percorremos seus materiais (a BOM)
         for (Produto mat : p.getMateriais()) {
-            int estoqueMinimo = 30;
+            // Utiliza a constante centralizada do Controller
+            int estoqueMinimo = ProdutoController.ESTOQUE_MINIMO;
             String status = (mat.getUnidade() < estoqueMinimo) ? "Baixo" : "Ok";
             
             modelo.addRow(new Object[] {
-                mat.getNome() + " (Ref: " + p.getCodigo() + ")", // Nome do material e qual produto ele pertence
+                mat.getNome() + " (Ref: " + p.getCodigo() + ")", 
                 mat.getUnidade(),
                 estoqueMinimo,
                 status

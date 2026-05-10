@@ -109,39 +109,53 @@ public class PainelMateriais extends JPanel {
         scrollPane.setBounds(148, 65, 365, 250);
         add(scrollPane);
         
-        // --- LÓGICA DO BOTÃO SALVAR ---
+                // LÓGICA DO BOTÃO SALVAR CORRIGIDA E INTEGRADA
         btnSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
                     String selecao = (String) comboProdutosPai.getSelectedItem();
                     if (selecao == null) {
-                        JOptionPane.showMessageDialog(null, "Cadastre um Produto na aba 'Produtos' primeiro!");
+                        JOptionPane.showMessageDialog(PainelMateriais.this, "Cadastre um Produto na aba 'Produtos' primeiro!", "Aviso", JOptionPane.WARNING_MESSAGE);
                         return;
                     }
                     
-                    // Extrai apenas o código do produto (o que vem antes do " - ")
-                    String codPai = selecao.split(" - ")[0];
+                    // CORREÇÃO: Adicionado o índice [0] para extrair o código corretamente
+                    String codPai = selecao.split(" - ")[0]; 
+                    String codigoMat = txtCodigo.getText().trim();
+                    String nomeMat = txtNome.getText().trim();
                     
-                    String codigoMat = txtCodigo.getText();
-                    String nomeMat = txtNome.getText();
-                    int unidade = Integer.parseInt(txtUnidade.getText());
-                    double custo = Double.parseDouble(txtCusto.getText().replace(",", "."));
+                    if (codigoMat.isEmpty() || nomeMat.isEmpty()) {
+                        JOptionPane.showMessageDialog(PainelMateriais.this, "Os campos de Código e Nome do material são obrigatórios!", "Aviso", JOptionPane.WARNING_MESSAGE);
+                        return;
+                    }
                     
-                    // Cria o objeto material
+                    int unidade;
+                    double custo;
+                    try {
+                        unidade = Integer.parseInt(txtUnidade.getText().trim());
+                        custo = Double.parseDouble(txtCusto.getText().trim().replace(",", "."));
+                        
+                        if (unidade < 0 || custo < 0) {
+                            throw new NumberFormatException();
+                        }
+                    } catch (NumberFormatException nfe) {
+                        JOptionPane.showMessageDialog(PainelMateriais.this, "Quantidade e Custo devem ser números válidos e maiores ou iguais a zero!", "Erro nos Dados", JOptionPane.ERROR_MESSAGE);
+                        return;
+                    }
+                    
                     Produto material = new Produto(codigoMat, nomeMat, unidade, custo);
-                    
-                    // Vincula ao pai no controller
                     controller.adicionarMaterialAoProduto(codPai, material);
                     
                     atualizarTabela();
                     limparCampos();
                     
-                    JOptionPane.showMessageDialog(null, "Material vinculado com sucesso!");
+                    JOptionPane.showMessageDialog(PainelMateriais.this, "Material processado com sucesso!");
                 } catch (Exception erro) {
-                    JOptionPane.showMessageDialog(null, "Erro nos dados: Verifique números e campos vazios.");
+                    JOptionPane.showMessageDialog(PainelMateriais.this, "Erro ao processar o cadastro: " + erro.getMessage(), "Erro", JOptionPane.ERROR_MESSAGE);
                 }
             }
         });
+
     }
 
     public void atualizarTabela() {

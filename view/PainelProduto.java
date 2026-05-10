@@ -69,31 +69,42 @@ public class PainelProduto extends JPanel {
         btnSalvar.setBounds(400, 160, 120, 30);
         add(btnSalvar);
         
-        // AÇÃO DE SALVAR ATUALIZADA
+        // AÇÃO DE SALVAR ATUALIZADA COM VALIDAÇÕES
         btnSalvar.addActionListener(e -> {
             try {
-                String codigo = txtCodProd.getText();
-                String nome = txtNomeProd.getText();
-                // Como esta tela não tem campo de 'quantidade' e 'custo', 
-                // definimos valores padrão ou tratamos a descrição
+                String codigo = txtCodProd.getText().trim();
+                String nome = txtNomeProd.getText().trim();
+                
+                // Valida se os campos de texto estão vazios
+                if (codigo.isEmpty() || nome.isEmpty()) {
+                    javax.swing.JOptionPane.showMessageDialog(this, 
+                        "Todos os campos (Código e Nome) devem ser preenchidos!", 
+                        "Aviso", javax.swing.JOptionPane.WARNING_MESSAGE);
+                    return;
+                }
+
                 int quantidadePadrao = 0; 
                 double custoPadrao = 0.0;
 
-                // 1. Salva no Controller (Centraliza os dados)
+                // Salva no Controller (pode lançar a exceção de código duplicado)
                 controller.cadastrarProduto(codigo, nome, quantidadePadrao, custoPadrao);
                 
-                // 2. Atualiza a tabela local da tela
                 atualizarTabelaLocal();
 
-                // 3. Limpa os campos
+                // Limpa os campos após o sucesso
                 txtCodProd.setText("");
                 txtNomeProd.setText("");
                 txtDescricao.setText("");
                 
+                javax.swing.JOptionPane.showMessageDialog(this, "Produto cadastrado com sucesso!");
+                
+            } catch (IllegalArgumentException erro) {
+                javax.swing.JOptionPane.showMessageDialog(this, erro.getMessage(), "Erro de Cadastro", javax.swing.JOptionPane.ERROR_MESSAGE);
             } catch (Exception erro) {
-                System.out.println("Erro ao salvar no PainelProduto: " + erro.getMessage());
+                javax.swing.JOptionPane.showMessageDialog(this, "Erro inesperado: " + erro.getMessage(), "Erro", javax.swing.JOptionPane.ERROR_MESSAGE);
             }
         });
+
     }
 
     // Método para manter a tabela desta tela sincronizada com o Controller

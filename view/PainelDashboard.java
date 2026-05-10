@@ -63,20 +63,37 @@ public class PainelDashboard extends JPanel {
     /**
      * Este método deve ser chamado toda vez que a tela do Dashboard for exibida
      */
+    /**
+     * Este método deve ser chamado toda vez que a tela do Dashboard for exibida
+     */
+        /**
+     * Este método deve ser chamado toda vez que a tela do Dashboard for exibida
+     */
     public void atualizarDados() {
         if (controller != null) {
-            int total = controller.getListaProdutos().size();
-            lblTotalMateriais.setText("Total de Produtos: " + total);//
-
+            int totalMateriaisInsumos = 0;
             int alertas = 0;
+
+            // Percorre as árvores BOM para isolar apenas os materiais
             for (Produto p : controller.getListaProdutos()) {
-                if (p.getUnidade() < 30) {
-                    alertas++;
+                if (p.getMateriais() != null) {
+                    // Contabiliza o tamanho da lista de insumos de cada pai
+                    totalMateriaisInsumos += p.getMateriais().size();
+                    
+                    // Verifica o status individual de cada material
+                    for (Produto mat : p.getMateriais()) {
+                        if (mat.getUnidade() < ProdutoController.ESTOQUE_MINIMO) {
+                            alertas++;
+                        }
+                    }
                 }
             }
-            lblAlertasEstoque.setText("Alertas de Estoque: " + alertas);
+
+            // Exibe estritamente o total de materiais/insumos vinculados
+            lblTotalMateriais.setText("Total de Materiais: " + totalMateriaisInsumos);
             
-            // Dica: Se quiser que o alerta mude de cor quando houver itens baixos
+            // Gerencia os alertas visuais do painel
+            lblAlertasEstoque.setText("Alertas de Estoque: " + alertas);
             if (alertas > 0) {
                 lblAlertasEstoque.setForeground(Color.RED);
             } else {
@@ -84,4 +101,5 @@ public class PainelDashboard extends JPanel {
             }
         }
     }
+
 }
