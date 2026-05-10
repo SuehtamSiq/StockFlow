@@ -14,6 +14,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+// TELA PRINCIPAL DO SISTEMA.
+// GERENCIA A NAVEGAÇÃO ENTRE OS PAINÉIS UTILIZANDO CardLayout.
 public class TelaPrincipal extends JFrame {
 
     private static final long serialVersionUID = 1L;
@@ -22,10 +24,10 @@ public class TelaPrincipal extends JFrame {
     private JPanel painelConteudo;
     private CardLayout cardLayout;
 
-    // Controller (por enquanto único)
+    // Controller COMPARTILHADO ENTRE TODAS AS TELAS DO SISTEMA.
     private ProdutoController controllerGeral = new ProdutoController();
 
-    // Telas (instanciadas uma única vez)
+    // INSTANCIA E REGISTRA TODOS OS PAINÉIS UTILIZADOS PELO SISTEMA.
     private PainelDashboard painelDashboard;
     private PainelMateriais painelMateriais;
     private PainelProduto painelProduto;
@@ -74,7 +76,7 @@ public class TelaPrincipal extends JFrame {
         // Instanciar telas uma vez
         inicializarTelas();
 
-        // Criar botões do menu
+        // Criar botões do menu lateral e define a navegação entre telas.
         menuLateral.add(criarBotao("Dashboard", "dashboard"));
         menuLateral.add(criarBotao("Materiais", "materiais"));
         menuLateral.add(criarBotao("Produto", "produto"));
@@ -85,7 +87,7 @@ public class TelaPrincipal extends JFrame {
     }
 
     /**
-     * Inicializa e registra as telas no CardLayout
+     * Inicializa e registra as telas no CardLayout.
      */
     private void inicializarTelas() {
         painelDashboard = new PainelDashboard(controllerGeral);
@@ -111,9 +113,9 @@ public class TelaPrincipal extends JFrame {
         botao.setHorizontalAlignment(SwingConstants.LEFT);
         botao.setFont(new Font("Arial", Font.BOLD, 14));
 
-        botao.addActionListener(e -> {
+        botao.addActionListener(e -> { // Atualiza os dados da tela antes de exibi-la ao usuário.
         if (nomeTela.equals("estoque")) {
-        painelEstoque.atualizar(); // <--- Adicione esta linha
+        painelEstoque.atualizar(); 
         }
     // ... manter as outras verificações (dashboard, materiais, etc)
         if (nomeTela.equals("materiais")) {

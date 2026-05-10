@@ -15,6 +15,7 @@ import javax.swing.border.LineBorder;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
+// TELA RESPONSÁVEL PELO CADASTRO DOS PRODUTOS FINAIS DO SISTEMA.
 public class PainelProduto extends JPanel {
     private static final long serialVersionUID = 1L;
     private JTextField txtCodProd;

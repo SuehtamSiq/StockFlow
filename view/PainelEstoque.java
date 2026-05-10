@@ -12,6 +12,7 @@ import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
 import model.Produto;
 
+//Tela responsável pela visualização do controle de estoque dos materiais.
 public class PainelEstoque extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -65,6 +66,7 @@ public void carregarEstoque(ArrayList<Produto>lista) {
 		});
 		}
 }
+// Atualiza a tabela exibindo os materiais vinculados aos produtos.
 public void atualizar() {
     DefaultTableModel modelo = (DefaultTableModel) table.getModel();
     modelo.setRowCount(0);
