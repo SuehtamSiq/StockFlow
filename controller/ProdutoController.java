@@ -4,16 +4,21 @@ import java.util.List;
 import model.Estoque;
 import model.Produto;
 
+//Classe responsável por controlar as regras de negócio dos produtos e materiais.
+//Atua como intermediária entre as telas (View) e os dados (Model).
 public class ProdutoController {
   
     private Estoque estoque = new Estoque();
     
-    // Constante centralizada para evitar duplicação (Melhoria 2)
+    // Define o estoque mínimo padrão para gerar alertas no sistema.
     public static final int ESTOQUE_MINIMO = 30;
 
+    // Método responsável por cadastrar novos produtos no estoque.
+	// Realiza validação para impedir códigos duplicados.
     public void cadastrarProduto(String codigo, String nome, int quantidade, double custo) throws IllegalArgumentException {
-        // Validação de duplicidade
+    	
         if (buscarPorCodigo(codigo) != null) {
+        	// Validação de duplicidade
             throw new IllegalArgumentException("O código '" + codigo + "' já está cadastrado em outro produto!");
         }
         
@@ -27,6 +32,7 @@ public class ProdutoController {
         return estoque.getLista();
     }
 
+ // Busca um produto no estoque utilizando seu código único.
     public Produto buscarPorCodigo(String codigo) {
         return estoque.buscarPorCodigo(codigo);
     }

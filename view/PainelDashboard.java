@@ -9,6 +9,8 @@ import javax.swing.SwingConstants;
 import javax.swing.border.BevelBorder;
 import model.Produto;
 
+// Painel responsável pela exibição de indicadores gerais do sistema,
+// como total de materiais cadastrados e alertas de estoque.
 public class PainelDashboard extends JPanel {
 
     private static final long serialVersionUID = 1L;

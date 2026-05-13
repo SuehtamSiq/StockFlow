@@ -20,6 +20,7 @@ import javax.swing.table.DefaultTableModel;
 import controller.ProdutoController;
 import model.Produto;
 
+// Tela responsável pelo cadastro de materiais e vínculo com produtos finais (BOM).
 public class PainelMateriais extends JPanel {
 
     private static final long serialVersionUID = 1L;
@@ -109,7 +110,7 @@ public class PainelMateriais extends JPanel {
         scrollPane.setBounds(148, 65, 365, 250);
         add(scrollPane);
         
-                // LÓGICA DO BOTÃO SALVAR CORRIGIDA E INTEGRADA
+                // EVENTO RESPONSÁVEL PELO CADASTRO E VÍNCULO DO MATERIAL AO PRODUTO PAI.
         btnSalvar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 try {
@@ -132,6 +133,7 @@ public class PainelMateriais extends JPanel {
                     int unidade;
                     double custo;
                     try {
+                    	// VALIDA SE QUANTIDADE E CUSTO SÃO NÚMEROS VÁLIDOS.
                         unidade = Integer.parseInt(txtUnidade.getText().trim());
                         custo = Double.parseDouble(txtCusto.getText().trim().replace(",", "."));
                         
@@ -157,7 +159,7 @@ public class PainelMateriais extends JPanel {
         });
 
     }
-
+    // EXIBE APENAS OS MATERIAIS PERTENCENTES AO PRODUTO SELECIONADO.
     public void atualizarTabela() {
     DefaultTableModel modelo = (DefaultTableModel) table.getModel();
     modelo.setRowCount(0);
@@ -184,8 +186,8 @@ public class PainelMateriais extends JPanel {
         }
     }
 }
-
-
+ 
+    // ATUALIZA A LISTA DE PRODUTOS DISPONÍVEIS PARA VÍNCULO DE MATERIAIS.
     public void atualizarCombo() {
         comboProdutosPai.removeAllItems();
         List<Produto> lista = controller.getListaProdutos();
@@ -193,7 +195,7 @@ public class PainelMateriais extends JPanel {
             comboProdutosPai.addItem(p.getCodigo() + " - " + p.getNome());
         }
     }
-    
+    // LIMPA OS CAMPOS DO FORMULÁRIO APÓS O CADASTRO.
     private void limparCampos() {
         txtCodigo.setText("");
         txtNome.setText("");

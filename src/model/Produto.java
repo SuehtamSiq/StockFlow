@@ -1,35 +1,19 @@
 package model;
 
-import java.util.ArrayList;
-import java.util.List;
-
-// Classe que representa um produto ou material do sistema.
-// Também funciona como estrutura BOM, armazenando materiais vinculados.
 public class Produto {
 	private String codigo;
 	private String nome;
+	private String descricao;
 	private int unidade;
 	private double custo;
 	
-	// Lista de materiais vinculados ao produto principal.
-	private List<Produto> materiais = new ArrayList<>();
-
-	// Adiciona um material à lista de materiais do produto.
-	public void adicionarMaterial(Produto material) {
-		this.materiais.add(material);
-	}
-
-	public List<Produto> getMateriais() {
-		return materiais;
-	}
-
 	public Produto(String codigo, String nome, int unidade, double custo) {
 		
 		this.codigo = codigo;
 		this.nome = nome;
+		this.descricao = descricao;
 		this.unidade = unidade;
 		this.custo = custo;
-
 		
 	}
 
@@ -49,6 +33,14 @@ public class Produto {
 		this.nome = nome;
 	}
 
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
 	public int getUnidade() {
 		return unidade;
 	}
@@ -65,7 +57,3 @@ public class Produto {
 		this.custo = custo;
 	}
 }
-	
-	
-
-

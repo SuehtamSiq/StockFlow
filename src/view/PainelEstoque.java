@@ -1,18 +1,20 @@
 package view;
 
-import controller.ProdutoController;
-import java.awt.Color;
 import java.awt.Font;
 import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.SwingConstants;
 import javax.swing.table.DefaultTableModel;
-import model.Produto;
 
-//Tela responsável pela visualização do controle de estoque dos materiais.
+import controller.ProdutoController;
+import model.Produto;
+import java.awt.Color;
+
 public class PainelEstoque extends JPanel {
 
 	private static final long serialVersionUID = 1L;
@@ -37,7 +39,7 @@ public class PainelEstoque extends JPanel {
 		add(lblControleEstoque);
 		
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setBounds(225, 145, 263, 224);
+		scrollPane.setBounds(179, 116, 363, 253);
 		add(scrollPane);
 		
 		table = new JTable();
@@ -47,7 +49,7 @@ public class PainelEstoque extends JPanel {
 		table.setModel(modelo);
 	}
 	
-public void carregarEstoque(ArrayList<Produto>lista) {
+public void carregarEstoque(List<Produto> lista) {
 	DefaultTableModel modelo = (DefaultTableModel) table.getModel ();
 	modelo.setNumRows(0);
 	
@@ -66,28 +68,4 @@ public void carregarEstoque(ArrayList<Produto>lista) {
 		});
 		}
 }
-// Atualiza a tabela exibindo os materiais vinculados aos produtos.
-public void atualizar() {
-    DefaultTableModel modelo = (DefaultTableModel) table.getModel();
-    modelo.setRowCount(0);
-    
-    // Percorremos os produtos finais
-    for (Produto p : controller.getListaProdutos()) {
-        // Para cada produto, percorremos seus materiais (a BOM)
-        for (Produto mat : p.getMateriais()) {
-            // Utiliza a constante centralizada do Controller
-            int estoqueMinimo = ProdutoController.ESTOQUE_MINIMO;
-            String status = (mat.getUnidade() < estoqueMinimo) ? "Baixo" : "Ok";
-            
-            modelo.addRow(new Object[] {
-                mat.getNome() + " (Ref: " + p.getCodigo() + ")", 
-                mat.getUnidade(),
-                estoqueMinimo,
-                status
-            });
-        }
-    }
 }
-
-}
-
